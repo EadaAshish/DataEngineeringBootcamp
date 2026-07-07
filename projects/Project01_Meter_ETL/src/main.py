@@ -1,6 +1,9 @@
 import logging
-import logging_config
 
-logging_config = logging.getLogger(__name__)
+from logging_config import configure_logging
 
-logging_config.info("Application Started")
+configure_logging()
+
+logger = logging.getLogger(__name__)
+
+logger.info("Application Started")
