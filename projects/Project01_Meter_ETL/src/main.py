@@ -3,7 +3,7 @@ import pandas as pd
 from extractor import extract_csv
 from pathlib import Path
 from logging_config import configure_logging
-from models import ValidationResult
+from validator import validate_dataframe
 
 configure_logging()
 logger = logging.getLogger(__name__)
@@ -28,11 +28,6 @@ except Exception:
 
 print(df.info())
 
-result = ValidationResult(
-    valid_dataframe=df,
-    invalid_dataframe=pd.DataFrame(),
-    errors=[],
-    warnings=[]
-)
+result = validate_dataframe(df)
 
 print(result)
