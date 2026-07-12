@@ -1,11 +1,12 @@
 from dataclasses import dataclass
 import pandas as pd
+from .validation_error import ValidationError
 
 @dataclass
 class ValidationResult:
     valid_dataframe: pd.DataFrame
     invalid_dataframe: pd.DataFrame
-    errors: list[str]
+    errors: list[ValidationError]
     warnings: list[str]
 
 ### USE DataClass Instead of This

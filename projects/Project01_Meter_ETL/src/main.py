@@ -26,7 +26,7 @@ except Exception:
     logger.exception("Unexpected error during extraction.")
     raise
 
-print(df.info())
+# VALIDATE
 
 result = validate_dataframe(df)
 
