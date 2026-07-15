@@ -1,33 +1,18 @@
-import logging
-import pandas as pd
-from extractor import extract_csv
 from pathlib import Path
-from logging_config import configure_logging
-from validator import validate_dataframe
+import logging
+
+from extractors import extract_csv
+from validators import validate_dataframe
+from utils import configure_logging
 
 configure_logging()
+
 logger = logging.getLogger(__name__)
-logger.info("Application Started")
 
-CSV_PATH = Path('data/input/meter_data.csv')
+CSV_PATH = Path("data/input/meter_data.csv")
 
-try:
-    logger.info("Starting extraction.")
-    df = extract_csv(CSV_PATH)
-    logger.info(
-        "Successfully extracted %d records from %s.",
-        len(df),
-        CSV_PATH.name
-    )
-except FileNotFoundError:
-    logger.exception("Input file not found: %s", CSV_PATH)
-    raise
-except Exception:
-    logger.exception("Unexpected error during extraction.")
-    raise
+df = extract_csv(CSV_PATH)
 
-# VALIDATE
+validation_result = validate_dataframe(df)
 
-result = validate_dataframe(df)
-
-print(result)
+print(validation_result.errors)

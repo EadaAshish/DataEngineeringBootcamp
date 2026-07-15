@@ -1,213 +1,171 @@
-# Bootcamp Journal
+# Data Engineering Bootcamp Roadmap
 
----
+## ✅ Phase 1: Python Foundations (Completed)
 
-# Day 1 - Project Setup & Logging
+### Day 1
+- Project setup
+- Virtual environments
+- Git & GitHub workflow
+- Logging
+- Reading CSV using Pandas
 
-## Objectives
-
-- Set up the Data Engineering Bootcamp repository.
-- Configure the development environment on both office and personal laptops.
-- Build the logging framework for `Project01_Meter_ETL`.
-
-## Topics Learned
-
-- Python virtual environments
-- Logging module
-- Logger hierarchy
-- Logging levels
-- Log handlers
+### Day 2
 - Project structure
-- Git basics
-- VS Code setup
-
-## Practical Work
-
-- Created `Project01_Meter_ETL`.
-- Configured `.venv`.
-- Built reusable `logging_config.py`.
-- Created project-specific `logs` directory.
-- Fixed logger configuration issues.
-- Learned why `basicConfig()` only works once unless `force=True` is used.
-- Understood why `__name__` becomes `__main__` when a file is executed directly.
-
-## Challenges Solved
-
-- Log file created in the wrong directory.
-- `application.log` not recreated.
-- PowerShell execution policy preventing virtual environment activation.
-- Git identity configuration (`user.name` and `user.email`).
-
-## Key Takeaways
-
-- Configure logging only once.
-- Keep logging centralized.
-- Never hardcode machine-specific paths.
-
----
-
-# Day 2 - Extraction Module
-
-## Objectives
-
-- Build the Extract stage of the ETL pipeline.
-
-## Topics Learned
-
-- Reading CSV files using pandas
-- `Path` objects
-- Type hints
+- Functions
+- Modules
 - Exception handling
-- Returning DataFrames
-
-## Practical Work
-
-- Implemented `extract_csv()`.
-- Added logging to extraction.
-- Successfully loaded sample meter data.
-
-## Design Decisions
-
-- Accept `Path` instead of raw strings.
-- Raise exceptions to the caller instead of silently failing.
-
-## Challenges Solved
-
-- Handling missing files.
-- Understanding `raise`.
-- Understanding why `df` becomes undefined after an exception.
-
-## Key Takeaways
-
-- Functions should have one responsibility.
-- Errors should propagate to the orchestration layer.
-
----
-
-# Day 3 - Validation Model
-
-## Objectives
-
-- Design the validation result object.
-
-## Topics Learned
-
-- Classes
-- Objects
-- Constructors
-- `@dataclass`
 - Type hints
-- Package structure
-- `__init__.py`
 
-## Practical Work
+### Day 3
+- Dataclasses
+- ValidationResult model
+- OOP fundamentals
+  - Class
+  - Object
+  - Attributes
+  - Methods
 
-- Created `ValidationResult`.
-- Refactored project structure.
-- Moved models into a dedicated package.
-- Learned package exports using `__init__.py`.
-
-## Challenges Solved
-
-- Import errors caused by incorrectly naming `__init__.py`.
-- Understanding why packages expose classes through `__init__.py`.
-
-## Key Takeaways
-
-- Classes model concepts.
-- Objects store independent state.
-- Dataclasses eliminate repetitive boilerplate.
-
----
-
-# Day 4 - OOP Foundations
-
-## Objectives
-
-- Understand how dataclasses work internally.
-
-## Topics Learned
-
-- `self`
-- `__init__()`
-- Constructor execution
-- Attribute initialization
-- Manual class implementation
-- Instance attributes
-
-## Practical Work
-
-- Recreated a dataclass manually using `__init__()`.
-- Compared manual classes with dataclasses.
-
-## Key Takeaways
-
-- `@dataclass` automatically generates constructors.
-- `self.attribute = parameter` copies data into the object.
-- Objects own their own state.
-
----
-
-# Day 5 - Validator Design
-
-## Objectives
-
-- Design the validation framework.
-
-## Topics Learned
-
-- Validator architecture
+### Day 4
 - Separation of responsibilities
-- Boolean masks in pandas
-- Designing validation output
-- Planning scalable validators
+- Validators
+- Boolean masks
+- DataFrame filtering
+- Performance considerations
 
-## Design Decisions
+### Day 5
+- Validation framework design
+- Creating valid and invalid DataFrames
+- Preserving original DataFrame
+- Error reporting strategy
 
-- Prefer vectorized DataFrame operations over row-by-row loops.
-- Preserve the original DataFrame.
-- Return both valid and invalid DataFrames.
-- Report all validation errors instead of stopping at the first one.
-- Keep business logic inside validators, not `main.py`.
+### Day 6
+- ValidationError dataclass
+- Iterating DataFrames
+- iterrows()
+- loc[]
+- Building error objects
 
-## Planned Architecture
+### Day 7
+- Individual validator implementation
+- Returning list[ValidationError]
+- Multiple errors per row
+- Using sets
+- Unique row extraction
+- Validator architecture
 
-```text
-Extract
-    ↓
-Validate
-    ↓
-Transform
-    ↓
-Load
-```
+### Day 8
+- Validator orchestration
+- Function references
+- Storing functions in lists
+- append() vs extend()
+- Building ValidationResult
+- DataFrame filtering using index.isin()
+- Fail-fast vs recoverable errors
+- ETL architecture discussions
 
-### Future validator structure
+---
 
-```text
-validators/
-├── missing.py
-├── datatype.py
-├── duplicates.py
-├── range_checks.py
-├── timestamps.py
-└── business_rules.py
-```
+# 🚧 Phase 2: Validation Framework (In Progress)
 
-## Current Project Status
+## Day 9
+- Multiple validators
+- Voltage validation
+- Timestamp validation
+- Warning framework
+- Logging improvements
 
-```text
-✔ Logging
-✔ Extractor
-✔ ValidationResult
-✔ Project Structure
-✔ Exception Handling
-✔ OOP Basics
-✔ Packages
-✔ Type Hints
-⬜ Validator Rules
-⬜ Transformation
-⬜ Database Loader
-⬜ Configuration
-⬜ Unit Tests
-```
+## Day 10
+- Duplicate detection
+- Business rule validation
+- Validator registration improvements
+- Unit testing validators
+
+---
+
+# ⏳ Phase 3: Transformation Layer
+
+- Data cleaning
+- Data normalization
+- Datetime conversion
+- Data enrichment
+- Derived columns
+- Pipeline chaining
+
+---
+
+# ⏳ Phase 4: Loading Layer
+
+- Writing CSV
+- Writing Excel
+- PostgreSQL loading
+- Batch inserts
+- Transaction handling
+- Upserts
+
+---
+
+# ⏳ Phase 5: Configuration & Utilities
+
+- settings.py
+- Environment variables
+- Config files
+- Constants
+- Path management
+
+---
+
+# ⏳ Phase 6: Testing
+
+- pytest
+- Unit tests
+- Mocking
+- Test data
+- Coverage
+
+---
+
+# ⏳ Phase 7: Production Engineering
+
+- CLI arguments
+- Scheduling
+- Logging best practices
+- Retry mechanisms
+- Performance optimization
+- Parallel processing
+
+---
+
+# ⏳ Phase 8: Docker & Deployment
+
+- Docker
+- Docker Compose
+- Environment configuration
+- Production deployment
+
+---
+
+# ⏳ Phase 9: Cloud & Data Engineering
+
+- Object Storage
+- Airflow
+- Spark Basics
+- Kafka Basics
+- Data Warehousing
+- ETL vs ELT
+- Medallion Architecture
+
+---
+
+# Final Project
+
+Build a production-style Meter ETL Pipeline featuring:
+
+- Modular architecture
+- Configurable validation framework
+- Transformation layer
+- PostgreSQL loading
+- Comprehensive logging
+- Unit tests
+- Docker support
+- Documentation
+- GitHub CI-ready project
